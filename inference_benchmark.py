@@ -30,8 +30,7 @@ DEVICE_CPU = 'cpu'
 
 
 def get_data_loader(num_workers=1):
-    data_root = os.path.join(DATASET_ROOT_DIR, "tapvid_davis/tapvid_davis.pkl")
-    dataset = TapVidDataset(dataset_type="davis", data_root=data_root)
+    dataset = TapVidDataset(dataset_type="davis", data_root=DATASET_ROOT_DIR)
     dataloader = DataLoader(
         dataset,
         batch_size=BATCH_SIZE,
