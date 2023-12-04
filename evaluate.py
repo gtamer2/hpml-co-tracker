@@ -13,7 +13,7 @@ import numpy as np
 
 import torch
 from omegaconf import OmegaConf
-
+from inference_benchmark import benchmark
 
 
 #from cotracker.datasets.badja_dataset import BadjaDataset
@@ -146,29 +146,20 @@ def run_eval(cfg: DefaultConfig):
     )
 
     # Timing and conducting the evaluation
-    import time
-
-    start = time.time()
-    # evaluate_result = evaluator.evaluate_sequence(
-    #     predictor,
-    #     test_dataloader,
-    #     dataset_name=cfg.dataset_name,
-    # )
-    end = time.time()
-    print(end - start)
+    benchmark()
 
     # Saving the evaluation results to a .json file
     print(f'this is cfg dataset name: {cfg.dataset_name}')
-    print(not "tapvid" in cfg.dataset_name)
-    if not "tapvid" in cfg.dataset_name:
-        print("evaluate_result", evaluate_result)
-    else:
-        evaluate_result = evaluate_result["avg"]
-    result_file = os.path.join(cfg.exp_dir, f"result_eval_.json")
-    evaluate_result["time"] = end - start
-    print(f"Dumping eval results to {result_file}.")
-    with open(result_file, "w") as f:
-        json.dump(evaluate_result, f)
+    # print(not "tapvid" in cfg.dataset_name)
+    # if not "tapvid" in cfg.dataset_name:
+    #     print("evaluate_result", evaluate_result)
+    # else:
+    #     evaluate_result = evaluate_result["avg"]
+    # result_file = os.path.join(cfg.exp_dir, f"result_eval_.json")
+    # evaluate_result["time"] = end - start
+    # print(f"Dumping eval results to {result_file}.")
+    # with open(result_file, "w") as f:
+    #     json.dump(evaluate_result, f)
 
 
 cs = hydra.core.config_store.ConfigStore.instance()

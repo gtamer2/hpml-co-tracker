@@ -99,7 +99,7 @@ def __get_next_batch(dataloader):
     return next(iter(dataloader))
 
 
-def main():
+def benchmark():
     print("Starting up...")
 
     print("Building data loaders...")
@@ -121,6 +121,3 @@ def main():
     print("C2.3: Total time for each epoch")
     print("> per epoch", total)
     print("> average", torch.mean(total))
-
-if __name__ == "__main__":
-    main()
