@@ -13,6 +13,8 @@ NUM_WORKERS = 1
 
 # Dataset
 DATASET_ROOT_DIR = "/moto/home/sgs2185/proj/data/k700-2020_targz/test/Kinetics700-2020-test"
+DATASET_PICKLE_PATH = "/moto/home/sgs2185/proj/data/k700-2020_targz/test/Kinetics700-2020-test/dataset.pickle"
+
 
 # Checkpoints
 CHECKPOINTS_DIR = "/moto/home/sgs2185/proj/hpml-co-tracker/checkpoints"
@@ -30,7 +32,7 @@ DEVICE_CPU = 'cpu'
 
 
 def get_data_loader(num_workers=1):
-    dataset = TapVidDataset(dataset_type="davis", data_root=DATASET_ROOT_DIR)
+    dataset = TapVidDataset(dataset_type="davis", data_root=DATASET_PICKLE_PATH)
     dataloader = DataLoader(
         dataset,
         batch_size=BATCH_SIZE,
@@ -42,7 +44,7 @@ def get_data_loader(num_workers=1):
 
 
 def get_model(checkpoint_path=CHECKPOINT_S4_W12):
-    return cotracker.models.build_cotracker.build_model(checkpoint_path)
+    return cotracker.models.build_cotracker.build_cotracker(checkpoint_path)
 
 
 def run_inference(dataloader, model, cuda=True):

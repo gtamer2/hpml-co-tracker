@@ -14,9 +14,12 @@ import numpy as np
 import torch
 from omegaconf import OmegaConf
 
-from cotracker.datasets.badja_dataset import BadjaDataset
-from cotracker.datasets.fast_capture_dataset import FastCaptureDataset
-from cotracker.datasets.tap_vid_datasets import TapVidDataset
+
+
+#from cotracker.datasets.badja_dataset import BadjaDataset
+#from hpml-co-tracker.cotracker.datasets.badja_dataset import BadjaDataset
+#from cotracker.datasets.fast_capture_dataset import FastCaptureDataset
+from datasets.tap_vid_datasets import TapVidDataset
 from cotracker.datasets.utils import collate_fn
 
 from cotracker.models.evaluation_predictor import EvaluationPredictor
@@ -125,7 +128,7 @@ def run_eval(cfg: DefaultConfig):
             data_root = os.path.join(cfg.dataset_root, "/tapvid_davis/tapvid_davis.pkl")
         elif dataset_type == "kinetics":
             data_root = os.path.join(
-                cfg.dataset_root, "/kinetics/kinetics-dataset/k700-2020/tapvid_kinetics"
+                cfg.dataset_root, "/k700-2020_targz/test/Kinetics700-2020-test"
             )
         test_dataset = TapVidDataset(
             dataset_type=dataset_type,
@@ -146,15 +149,17 @@ def run_eval(cfg: DefaultConfig):
     import time
 
     start = time.time()
-    evaluate_result = evaluator.evaluate_sequence(
-        predictor,
-        test_dataloader,
-        dataset_name=cfg.dataset_name,
-    )
+    # evaluate_result = evaluator.evaluate_sequence(
+    #     predictor,
+    #     test_dataloader,
+    #     dataset_name=cfg.dataset_name,
+    # )
     end = time.time()
     print(end - start)
 
     # Saving the evaluation results to a .json file
+    print(f'this is cfg dataset name: {cfg.dataset_name}')
+    print(not "tapvid" in cfg.dataset_name)
     if not "tapvid" in cfg.dataset_name:
         print("evaluate_result", evaluate_result)
     else:
