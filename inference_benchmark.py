@@ -121,3 +121,6 @@ def benchmark():
     print("C2.3: Total time for each epoch")
     print("> per epoch", total)
     print("> average", torch.mean(total))
+
+if __name__ == "__main__":
+    benchmark()
